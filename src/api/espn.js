@@ -186,3 +186,42 @@ export async function fetchTeamSchedule(teamId, signal) {
     .map((event) => normalizeGame(event))
     .sort((a, b) => new Date(a.date) - new Date(b.date))
 }
+
+export async function fetchGameLeaders(gameId, signal) {
+  const payload = await getJSON(`${SITE}/summary?event=${gameId}`, signal)
+  const teams = payload?.boxscore?.players ?? []
+
+  return teams.map((team) => {
+    const statGroup = team.statistics?.[0]
+    const labels = statGroup?.labels ?? []
+    const ptsIndex = labels.indexOf('PTS')
+    const rebIndex = labels.indexOf('REB')
+    const astIndex = labels.indexOf('AST')
+
+    const players = (statGroup?.athletes ?? [])
+      .filter((athlete) => !athlete.didNotPlay)
+      .map((athlete) => {
+        const stats = athlete.stats ?? []
+        return {
+          id: String(athlete.athlete?.id ?? ''),
+          name: athlete.athlete?.displayName ?? athlete.athlete?.shortName ?? 'Jogador',
+          shortName: athlete.athlete?.shortName ?? '',
+          headshot: athlete.athlete?.headshot?.href ?? null,
+          position: athlete.athlete?.position?.abbreviation ?? '',
+          points: ptsIndex >= 0 ? Number(stats[ptsIndex] ?? 0) : 0,
+          rebounds: rebIndex >= 0 ? Number(stats[rebIndex] ?? 0) : 0,
+          assists: astIndex >= 0 ? Number(stats[astIndex] ?? 0) : 0,
+        }
+      })
+      .sort((a, b) => b.points - a.points || b.rebounds - a.rebounds || b.assists - a.assists)
+      .slice(0, 3)
+
+    return {
+      teamId: String(team.team?.id ?? ''),
+      teamName: team.team?.displayName ?? '',
+      abbreviation: team.team?.abbreviation ?? '',
+      logo: firstLogo(team.team),
+      players,
+    }
+  })
+}

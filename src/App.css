@@ -755,6 +755,98 @@
   background: linear-gradient(135deg, rgba(255, 92, 43, 0.1), rgba(255, 255, 255, 0.02));
 }
 
+.game-card.is-clickable {
+  cursor: pointer;
+}
+
+.game-card__leaders-toggle {
+  margin-top: 2px;
+  padding-top: 8px;
+  border-top: 1px dashed var(--border);
+  color: var(--accent-2);
+  font-size: 11px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.game-card__leaders {
+  margin-top: 2px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border);
+}
+
+.leaders-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.leaders-team__name {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0 0 6px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.leaders-team__name img {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+}
+
+.leaders-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.leader-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.leader-row img,
+.leader-row__avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex: none;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.leader-row__info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  line-height: 1.2;
+}
+
+.leader-row__info strong {
+  font-size: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.leader-row__info span {
+  color: var(--muted);
+  font-size: 10px;
+}
+
+.feedback--inline-error {
+  color: #ef4444;
+  font-size: 11px;
+}
+
 .game-card__head {
   display: flex;
   align-items: center;
@@ -1505,6 +1597,98 @@
 
   .game-card__foot {
     font-size: 10px;
+  }
+
+  .game-card.is-clickable {
+    cursor: pointer;
+  }
+
+  .game-card__leaders-toggle {
+    margin-top: 10px;
+    padding-top: 8px;
+    border-top: 1px dashed var(--border);
+    color: var(--accent-2);
+    font-size: 11px;
+    font-weight: 600;
+    text-align: center;
+  }
+
+  .game-card__leaders {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid var(--border);
+  }
+
+  .leaders-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .leaders-team__name {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin: 0 0 6px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .leaders-team__name img {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+  }
+
+  .leaders-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .leader-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .leader-row img,
+  .leader-row__avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex: none;
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .leader-row__info {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    line-height: 1.2;
+  }
+
+  .leader-row__info strong {
+    font-size: 11px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .leader-row__info span {
+    color: var(--muted);
+    font-size: 10px;
+  }
+
+  .feedback--inline-error {
+    color: #ef4444;
+    font-size: 11px;
   }
 
   /* Standings */
