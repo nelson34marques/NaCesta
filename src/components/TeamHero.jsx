@@ -21,8 +21,16 @@ function Streak({ value }) {
   return <strong className={`streak streak--${tone}`}>{text}</strong>
 }
 
-export default function TeamHero({ team, standing, nextGame, emailEnabled }) {
-  const opponent = nextGame ? splitGame(nextGame, team.id).opponent : null
+function liveClock(status) {
+  if (status?.shortDetail) return status.shortDetail
+  const period = status?.period ? `${status.period}º` : ''
+  return [status?.clock, period].filter(Boolean).join(' · ') || 'Ao vivo'
+}
+
+export default function TeamHero({ team, standing, nextGame, liveGame }) {
+  const featured = liveGame ?? nextGame
+  const { mine, opponent } = featured ? splitGame(featured, team.id) : { mine: null, opponent: null }
+  const isLiveGame = Boolean(liveGame)
 
   return (
     <section className="team-hero" style={{ '--team-color': team.color }}>
@@ -54,18 +62,58 @@ export default function TeamHero({ team, standing, nextGame, emailEnabled }) {
         </div>
       </div>
 
-      <div className="team-hero__next">
-        <p className="eyebrow">Próximo jogo</p>
-        {nextGame ? (
+      <div className={`team-hero__next${isLiveGame ? ' team-hero__next--live' : ''}`}>
+        <p className={`eyebrow${isLiveGame ? ' eyebrow--live' : ''}`}>
+          {isLiveGame && <span className="live-dot" aria-hidden="true" />}
+          {isLiveGame ? 'A jogar agora' : 'Próximo jogo'}
+        </p>
+        {featured ? (
           <>
             <p className="team-hero__next-line">
-              {team.abbreviation} <span className="muted">vs</span> {opponent?.abbreviation ?? '—'}
+              {isLiveGame ? (
+                <>
+                  <span>{mine?.abbreviation ?? team.abbreviation}</span>
+                  <strong
+                    className={`team-hero__score${
+                      (mine?.score ?? 0) > (opponent?.score ?? 0)
+                        ? ' is-leading'
+                        : (mine?.score ?? 0) < (opponent?.score ?? 0)
+                          ? ' is-trailing'
+                          : ''
+                    }`}
+                  >
+                    {mine?.score ?? 0}
+                  </strong>
+                  <span className="muted team-hero__dash">—</span>
+                  <strong
+                    className={`team-hero__score${
+                      (opponent?.score ?? 0) > (mine?.score ?? 0)
+                        ? ' is-leading'
+                        : (opponent?.score ?? 0) < (mine?.score ?? 0)
+                          ? ' is-trailing'
+                          : ''
+                    }`}
+                  >
+                    {opponent?.score ?? 0}
+                  </strong>
+                  <span>{opponent?.abbreviation ?? '—'}</span>
+                </>
+              ) : (
+                <>
+                  {team.abbreviation} <span className="muted">vs</span> {opponent?.abbreviation ?? '—'}
+                </>
+              )}
             </p>
-            <p className="muted team-hero__next-time">
-              {formatShortDate(nextGame.date)} · {formatTime(nextGame.date)}
-            </p>
-            <p className="countdown">{formatCountdown(nextGame.date)}</p>
-            {emailEnabled && <span className="alerts__email">Alertas por email ativos</span>}
+            {isLiveGame ? (
+              <p className="countdown countdown--live">{liveClock(featured.status)}</p>
+            ) : (
+              <>
+                <p className="muted team-hero__next-time">
+                  {formatShortDate(featured.date)} · {formatTime(featured.date)}
+                </p>
+                <p className="countdown">{formatCountdown(featured.date)}</p>
+              </>
+            )}
           </>
         ) : (
           <p className="muted">Sem jogos agendados.</p>

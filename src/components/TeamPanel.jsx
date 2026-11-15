@@ -24,10 +24,10 @@ export default function TeamPanel({ state, team, standing }) {
         )}
       </div>
 
-      {state.loading && <LoadingState label="A carregar a agenda do time..." />}
-      {state.error && <ErrorState error={state.error} onRetry={state.reload} />}
+      {state.loading && !state.data && <LoadingState label="A carregar a agenda do time..." />}
+      {state.error && !state.data && <ErrorState error={state.error} onRetry={state.reload} />}
 
-      {!state.loading && !state.error && (
+      {state.data && (
         <div className="panel__columns">
           <div>
             <h3 className="section-title">Próximos jogos</h3>

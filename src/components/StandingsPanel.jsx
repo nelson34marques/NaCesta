@@ -11,10 +11,10 @@ export default function StandingsPanel({ state, favoriteTeamId }) {
         </div>
       </div>
 
-      {state.loading && <LoadingState label="A carregar a classificação..." />}
-      {state.error && <ErrorState error={state.error} onRetry={state.reload} />}
+      {state.loading && !state.data && <LoadingState label="A carregar a classificação..." />}
+      {state.error && !state.data && <ErrorState error={state.error} onRetry={state.reload} />}
 
-      {!state.loading && !state.error && (
+      {state.data && (
         <div className="standings-grid">
           {(state.data ?? []).map((conference) => (
             <div key={conference.id} className="standings">

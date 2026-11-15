@@ -44,7 +44,12 @@ export default function App() {
   const { enabled: emailEnabled, email } = useEmailAlerts()
 
   const games = useMemo(() => schedule.data ?? [], [schedule.data])
-  const liveGame = useMemo(() => liveGameFor(games), [games])
+  const liveGame = useMemo(() => {
+    const fromScoreboard = (scoreboard.data ?? []).find(
+      (game) => isLive(game) && game.competitors.some((competitor) => competitor.id === team?.id),
+    )
+    return fromScoreboard ?? liveGameFor(games)
+  }, [scoreboard.data, games, team?.id])
   const nextGame = useMemo(() => nextGameFor(games, now), [games, now])
 
   const hasLiveGames = useMemo(
@@ -108,14 +113,10 @@ export default function App() {
               team={team}
               standing={favoriteStanding}
               nextGame={nextGame}
-              emailEnabled={emailEnabled}
+              liveGame={liveGame}
             />
 
-            <AlertStrip
-              team={team}
-              liveGame={liveGame}
-              notifications={notifications}
-            />
+            <AlertStrip notifications={notifications} />
 
             <nav className="tabs" aria-label="Secções do app">
               {TABS.map((item) => (

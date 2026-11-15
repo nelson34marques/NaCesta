@@ -8,7 +8,11 @@ export function useAsync(loader, deps = []) {
     let alive = true
     const controller = new AbortController()
 
-    setState({ data: null, loading: true, error: null })
+    setState((previous) => ({
+      data: previous.data,
+      loading: previous.data == null,
+      error: null,
+    }))
 
     loader(controller.signal)
       .then((data) => {
@@ -17,7 +21,11 @@ export function useAsync(loader, deps = []) {
       })
       .catch((error) => {
         if (!alive || controller.signal.aborted) return
-        setState({ data: null, loading: false, error })
+        setState((previous) => ({
+          data: previous.data,
+          loading: false,
+          error: previous.data == null ? error : previous.error,
+        }))
       })
 
     return () => {

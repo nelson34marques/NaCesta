@@ -48,10 +48,10 @@ export default function ScoreboardPanel({ state, date, onChangeDate, favoriteTea
         </div>
       </div>
 
-      {state.loading && <LoadingState label="A carregar os jogos..." />}
-      {state.error && <ErrorState error={state.error} onRetry={state.reload} />}
+      {state.loading && !state.data && <LoadingState label="A carregar os jogos..." />}
+      {state.error && !state.data && <ErrorState error={state.error} onRetry={state.reload} />}
 
-      {!state.loading && !state.error && (
+      {state.data && (
         <>
           {games.length === 0 && <EmptyState>Sem jogos da NBA nesta data.</EmptyState>}
 

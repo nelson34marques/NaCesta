@@ -65,7 +65,10 @@ export default function GameCard({ game, favoriteTeamId, emphasize = false, show
       aria-expanded={canShowLeaders ? expanded : undefined}
     >
       <header className="game-card__head">
-        <span className={`pill pill--${game.status.state}`}>{statusLabel(game.status)}</span>
+        <span className={`pill pill--${game.status.state}`}>
+          {game.status.state === 'in' && <span className="live-dot" aria-hidden="true" />}
+          {statusLabel(game.status)}
+        </span>
         <span className="game-card__when">
           {showDate && `${formatShortDate(game.date)} · `}
           {formatTime(game.date)}

@@ -63,10 +63,10 @@ export default function Onboarding({ state, onSelect }) {
         />
       </div>
 
-      {state.loading && <LoadingState label="A carregar os 30 times..." />}
-      {state.error && <ErrorState error={state.error} onRetry={state.reload} />}
+      {state.loading && !state.data && <LoadingState label="A carregar os 30 times..." />}
+      {state.error && !state.data && <ErrorState error={state.error} onRetry={state.reload} />}
 
-      {!state.loading && !state.error && (
+      {state.data && (
         <>
           <div className="team-grid">
             {filtered.map((team) => (
