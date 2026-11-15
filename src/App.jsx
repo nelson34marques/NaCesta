@@ -104,14 +104,17 @@ export default function App() {
           <Onboarding state={teams} onSelect={handleSelectTeam} />
         ) : (
           <>
-            <TeamHero team={team} standing={favoriteStanding} nextGame={nextGame} />
+            <TeamHero
+              team={team}
+              standing={favoriteStanding}
+              nextGame={nextGame}
+              emailEnabled={emailEnabled}
+            />
 
             <AlertStrip
               team={team}
               liveGame={liveGame}
-              nextGame={nextGame}
               notifications={notifications}
-              emailEnabled={emailEnabled}
             />
 
             <nav className="tabs" aria-label="Secções do app">

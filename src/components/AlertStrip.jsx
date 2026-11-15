@@ -1,7 +1,6 @@
-import { formatCountdown, formatTime } from '../lib/format'
 import { splitGame } from '../lib/games'
 
-export default function AlertStrip({ team, liveGame, nextGame, notifications, emailEnabled }) {
+export default function AlertStrip({ team, liveGame, notifications }) {
   const { supported, permission, requestPermission } = notifications
 
   let content = null
@@ -11,7 +10,7 @@ export default function AlertStrip({ team, liveGame, nextGame, notifications, em
     content = (
       <div className="alert alert--live">
         <span className="alert__dot" aria-hidden="true" />
-        <div>
+        <div className="alert__body">
           <strong>A jogar agora</strong>
           <p>
             {mine?.abbreviation} {mine?.score ?? 0} — {opponent?.score ?? 0}{' '}
@@ -21,23 +20,11 @@ export default function AlertStrip({ team, liveGame, nextGame, notifications, em
         </div>
       </div>
     )
-  } else if (nextGame) {
-    const { mine, opponent } = splitGame(nextGame, team.id)
-    content = (
-      <div className="alert">
-        <div>
-          <strong>Próximo jogo {formatCountdown(nextGame.date)}</strong>
-          <p>
-            {mine?.abbreviation} vs {opponent?.abbreviation} · {formatTime(nextGame.date)}
-          </p>
-        </div>
-      </div>
-    )
   }
 
   const needsPermission = supported && permission === 'default'
 
-  if (!content && !needsPermission && !emailEnabled) return null
+  if (!content && !needsPermission) return null
 
   return (
     <section className="alerts">
@@ -47,7 +34,6 @@ export default function AlertStrip({ team, liveGame, nextGame, notifications, em
           Ativar notificações
         </button>
       )}
-      {emailEnabled && <span className="alerts__email">Alertas por email ativos</span>}
     </section>
   )
 }
