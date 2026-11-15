@@ -34,7 +34,7 @@ export default function Header({ team, onClearTeam, notifications }) {
   const blocked = permission === 'denied'
 
   return (
-    <header className="site-header">
+    <header className={`site-header${team ? ' has-team' : ''}`}>
       <div className="brand">
         <span className="brand__mark">
           <BasketballMark />
