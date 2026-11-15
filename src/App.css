@@ -269,17 +269,17 @@
 
 .onboarding__intro {
   max-width: 660px;
-  padding: 34px 0 6px;
+  padding: 30px 0 4px;
 }
 
 .onboarding__intro h1 {
-  font-size: clamp(34px, 5.2vw, 52px);
-  line-height: 1.02;
+  font-size: clamp(32px, 5vw, 50px);
+  line-height: 1.04;
   letter-spacing: -0.03em;
 }
 
 .onboarding__intro p:last-child {
-  margin-top: 14px;
+  margin-top: 12px;
   max-width: 54ch;
   color: var(--muted);
   font-size: 14px;
@@ -289,12 +289,12 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
-  gap: 12px;
+  gap: 10px;
 }
 
 .segmented {
   display: inline-flex;
+  flex: 0 0 auto;
   gap: 4px;
   padding: 4px;
   border: 1px solid var(--border);
@@ -302,36 +302,18 @@
   background: var(--panel);
 }
 
-.segmented button {
-  padding: 8px 16px;
-  border: 0;
-  border-radius: 999px;
-  background: transparent;
-  color: var(--muted);
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: color 0.2s, background 0.2s;
-}
-
-.segmented button:hover {
-  color: var(--text);
-}
-
-.segmented button.is-active {
-  background: linear-gradient(135deg, var(--accent-2), var(--accent));
-  color: #1a0d07;
-}
-
 .search {
-  flex: 1 1 240px;
-  max-width: 360px;
-  padding: 11px 14px;
+  flex: 1 1 220px;
+  width: 100%;
+  min-width: 0;
+  max-width: 340px;
+  min-height: 42px;
+  padding: 10px 14px;
   border: 1px solid var(--border);
   border-radius: 12px;
   background: var(--bg-soft);
   color: var(--text);
-  font-size: 13px;
+  font-size: 14px;
   outline: none;
   transition: border-color 0.2s, box-shadow 0.2s;
 }
@@ -1003,24 +985,29 @@
   }
 
   .site-header {
-    gap: 10px;
-    padding: 12px 0;
+    gap: 8px;
+    padding: 10px 0;
+  }
+
+  .brand {
+    gap: 8px;
+    min-width: 0;
   }
 
   .brand__mark {
-    width: 34px;
-    height: 34px;
-    border-radius: 10px;
+    width: 32px;
+    height: 32px;
+    border-radius: 9px;
   }
 
   .brand__mark svg {
-    width: 19px;
-    height: 19px;
+    width: 18px;
+    height: 18px;
   }
 
   .brand__text strong {
-    font-size: 13px;
-    letter-spacing: 0.06em;
+    font-size: 12px;
+    letter-spacing: 0.05em;
   }
 
   .brand__text span {
@@ -1028,17 +1015,17 @@
   }
 
   .header__actions {
-    gap: 8px;
+    gap: 6px;
   }
 
   .header__team {
-    gap: 6px;
-    padding: 3px 4px 3px 9px;
+    gap: 5px;
+    padding: 3px 4px 3px 8px;
   }
 
   .header__team img {
-    width: 23px;
-    height: 23px;
+    width: 22px;
+    height: 22px;
   }
 
   .header__team-name {
@@ -1066,18 +1053,24 @@
     padding-top: 18px;
   }
 
+  .onboarding {
+    gap: 16px;
+  }
+
   .onboarding__intro {
-    padding: 18px 0 2px;
+    padding: 12px 0 0;
     text-align: center;
   }
 
   .onboarding__intro h1 {
-    font-size: clamp(30px, 9vw, 40px);
+    font-size: clamp(28px, 8vw, 34px);
+    line-height: 1.06;
   }
 
   .onboarding__intro p:last-child {
-    margin-inline: auto;
+    margin: 10px auto 0;
     font-size: 13px;
+    line-height: 1.45;
   }
 
   .onboarding__controls {
@@ -1087,19 +1080,24 @@
   }
 
   .search {
+    width: 100%;
     max-width: none;
-    min-height: 44px;
+    min-width: 0;
+    min-height: 42px;
+    padding: 10px 12px;
+    font-size: 14px;
   }
 
   .segmented {
-    justify-content: space-between;
+    width: 100%;
+    justify-content: stretch;
   }
 
   .segmented button {
     flex: 1;
-    min-height: 38px;
-    padding: 8px 10px;
-    font-size: 12.5px;
+    min-height: 36px;
+    padding: 7px 8px;
+    font-size: 12px;
   }
 
   .team-grid {
